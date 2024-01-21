@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Vue3基本知识 | 一路向北的博客</title><meta name="author" content="一路向北"><meta name="copyright" content="一路向北"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="0. 创建一个新项目123npm init vue@latestnpm installnpm run dev  1.组合式API-setup选项 时机：在beforecreate()之前 setup中的this指向undefine setup写代码的特点:定义数据 + 函数 然后以对象方式return &lt;script setup&gt;解决了什么问题？ 经过语法糖的封装更简单的使用组合式AP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3基本知识">
+<meta property="og:url" content="http://example.com/2024/01/21/Vue3%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="一路向北的博客">
+<meta property="og:description" content="0. 创建一个新项目123npm init vue@latestnpm installnpm run dev  1.组合式API-setup选项 时机：在beforecreate()之前 setup中的this指向undefine setup写代码的特点:定义数据 + 函数 然后以对象方式return &lt;script setup&gt;解决了什么问题？ 经过语法糖的封装更简单的使用组合式AP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/10/28/eUH5ql2aAcdToLf.jpg">
+<meta property="article:published_time" content="2024-01-21T04:02:25.958Z">
+<meta property="article:modified_time" content="2024-01-21T06:30:18.395Z">
+<meta property="article:author" content="一路向北">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Vue3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/10/28/eUH5ql2aAcdToLf.jpg"><link rel="shortcut icon" href="https://s2.loli.net/2023/10/25/leyWn1OSiGRZJfT.jpg"><link rel="canonical" href="http://example.com/2024/01/21/Vue3%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Vue3基本知识',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-21 14:30:18'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2023/10/25/leyWn1OSiGRZJfT.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/10/28/eUH5ql2aAcdToLf.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="一路向北的博客"><span class="site-name">一路向北的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Vue3基本知识</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-21T04:02:25.958Z" title="发表于 2024-01-21 12:02:25">2024-01-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-21T06:30:18.395Z" title="更新于 2024-01-21 14:30:18">2024-01-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Vue3基本知识"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="0-创建一个新项目"><a href="#0-创建一个新项目" class="headerlink" title="0. 创建一个新项目"></a>0. 创建一个新项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm init vue@latest</span><br><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="1-组合式API-setup选项"><a href="#1-组合式API-setup选项" class="headerlink" title="1.组合式API-setup选项"></a>1.组合式API-setup选项</h3><ul>
+<li>时机：在<code>beforecreate()</code>之前</li>
+<li><code>setup</code>中的<code>this</code>指向<code>undefine</code></li>
+<li><code>setup</code>写代码的特点:定义数据 + 函数 然后以对象方式<code>return</code></li>
+<li><code>&lt;script setup&gt;</code>解决了什么问题？<ul>
+<li>经过语法糖的封装更简单的使用组合式API</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/01/21/PHCvO6k3iXxJbmR.png" alt="语法糖.png"></p>
+<hr>
+<h3 id="2-reactive和ref函数"><a href="#2-reactive和ref函数" class="headerlink" title="2.reactive和ref函数"></a>2.reactive和ref函数</h3><table>
+<thead>
+<tr>
+<th><code>reactive()</code></th>
+<th><code>ref()</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>接受<strong>对象类型</strong>数据的参数传入并返回一个响应式的对象</td>
+<td>接收<strong>简单类型或者对象类型</strong>的数据传入并返回一个响应式的对象</td>
+</tr>
+</tbody></table>
+<p>相同点：</p>
+<ol>
+<li>用函数调用的方式生成响应式数据</li>
+</ol>
+<p>不同点：</p>
+<ol>
+<li>reactive不能处理简单类型的数据</li>
+<li>ref参数类型支持更好但是必须通过.value访问修改</li>
+<li>ref函数的内部实现依赖于reactive函数</li>
+</ol>
+<hr>
+<h3 id="3-computed计算函数"><a href="#3-computed计算函数" class="headerlink" title="3.computed计算函数"></a>3.computed计算函数</h3><p>核心步骤:<br>1.导入computed函数<br>2.执行函数 在回调参数中return基于响应式数据做计算的值，用变量接收</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="comment">// 导入</span></span><br><span class="line"><span class="keyword">import</span> &#123; computed &#125;<span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">// 执行函数 变量接收 在回调参数中return计算值const </span></span><br><span class="line">computedState=<span class="title function_">computed</span>(</span><br><span class="line">    <span class="function">()=&gt;</span>&#123;<span class="keyword">return</span> 基于响应式数据做计算之后的值&#125;</span><br><span class="line">    )</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>最佳实践</p>
+<ol>
+<li>计算属性中不应该有“副作用’<br>比如异步请求&#x2F;修改dom</li>
+<li>避免直接修改计算属性的值<br>计算属性应该是只读的</li>
+</ol>
+<hr>
+<h3 id="4-组合式API-watch"><a href="#4-组合式API-watch" class="headerlink" title="4.组合式API - watch"></a>4.组合式API - watch</h3><p>步骤：<br>1.导入watch函数<br>2.执行watch函数传入要侦听的响应式数据(ref对象)和回调函数</p>
+<p>监听单个变量：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="comment">//1.导入watch</span></span><br><span class="line"><span class="keyword">import</span> &#123; ref, watch &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.调用watch 侦听变化</span></span><br><span class="line"><span class="title function_">watch</span>(count,<span class="function">(<span class="params">newValue, oldValue</span>)=&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`count发生了变化,老值为<span class="subst">$&#123;oldValue&#125;</span>,新值为<span class="subst">$&#123;newValue&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>监听多个变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; ref, watch &#125; <span class="keyword">from</span> <span class="string">&#x27;vue</span></span><br><span class="line"><span class="string">const count = ref(0)</span></span><br><span class="line"><span class="string">const name = ref(&#x27;</span>cp<span class="string">&#x27;</span></span><br><span class="line"><span class="string">// 侦听多个数据源</span></span><br><span class="line"><span class="string">watch(</span></span><br><span class="line"><span class="string">[count, name],</span></span><br><span class="line"><span class="string">([newCount,newNamel,[oldCount,oldName])=&gt; </span></span><br><span class="line"><span class="string">&#123;console.log(&#x27;</span>count或者name变化了<span class="string">&#x27;，[newCount,newName],[oldCount, oldName])&#125;</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>第三个参数:<ul>
+<li><code>imediate</code>:创建时立即触发一次</li>
+<li><code>deep</code>：深度监听，用于监听对象内的变量，默认浅层监听，即无法监听到对象内变量的变化<blockquote>
+<p>作为watch函数的第一个参数，ref对象需要添加.value吗?<br>不需要，watch会自动读取<br>watch只能侦听单个数据吗?<br>单个或者多个<br>不开启deep，直接修改嵌套属性能触发回调吗?<br>不能，默认是浅层侦听<br>不开启deep，想在某个层次比较深的属性变化时执行回调怎么做?<br>可以把第一个参数写成函数的写法，返回要监听的具体属性</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="5-组合式API-生命周期函数"><a href="#5-组合式API-生命周期函数" class="headerlink" title="5.组合式API - 生命周期函数"></a>5.组合式API - 生命周期函数</h3><p><code>onMounted()</code>：依次执行</p>
+<blockquote>
+<p>1.组合式API中生命周期函数的格式是什么?<br>on+生命周期名字<br>2.组合式API中可以使用oncreated吗?<br>没有这个钩子函数，直接写到setup中<br>3.组合式API中组件卸载完毕时执行哪个函数?<br>onUnmounted</p>
+</blockquote>
+<hr>
+<h3 id="6-组合式API-父子通信"><a href="#6-组合式API-父子通信" class="headerlink" title="6.组合式API - 父子通信"></a>6.组合式API - 父子通信</h3><p>组合式API下的父传子<br>基本思想<br>1.父组件中给子组件绑定属性<br>2.子组件内部通过props选项接收</p>
+<p><img src="https://s2.loli.net/2024/01/21/xM3LckbpYOdqnD8.png" alt="父传子.png"></p>
+<p>组合式API下的子传父<br>基本思想<br>1.父组件中给子组件标签通过@绑定事件<br>2.子组件内部通过 $emit 方法触发事件<br><img src="https://s2.loli.net/2024/01/21/YgkQNEwTFSeZMAb.png" alt="子传父.png"></p>
+<blockquote>
+<p>父传子<br>1.父传子的过程中通过什么方式接收props?<br>defineProps({属性名:类型})<br>2.setup语法糖中如何使用父组件传过来的数据?<br>const props&#x3D;defineProps({属性名:类型})<br>子传父<br>1.子传父的过程中通过什么方式得到emit方法?<br>defineEmits([‘事件名称’])</p>
+</blockquote>
+<hr>
+<h3 id="7-组合式API-模版引用"><a href="#7-组合式API-模版引用" class="headerlink" title="7.组合式API - 模版引用"></a>7.组合式API - 模版引用</h3><ul>
+<li>dom引用</li>
+</ul>
+<p>1.调用ref函数生成一个ref对象<br>2.通过ref标识绑定ref对象到标签</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue</span></span><br><span class="line"><span class="string">//1.调用ref函数得到ref对象</span></span><br><span class="line"><span class="string">const hlRef = ref(null)&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;template&gt;</span></span><br><span class="line"><span class="string">&lt;!--2.通过ref标识绑定ref对象--&gt;</span></span><br><span class="line"><span class="string">&lt;h1 ref=&quot;h1Ref&quot;&gt;我是dom标签h1&lt;/h1&gt;</span></span><br><span class="line"><span class="string">&lt;/template&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>definExpose</code>:子组件setup中的属性暴露给父组件使用。<br><img src="https://s2.loli.net/2024/01/21/lVfrcYZ8qEbBzoS.png" alt="defineExpose.png"></li>
+</ul>
+<blockquote>
+<p>1.获取模板引用的时机是什么?<br>组件挂载完毕<br>2.defineExpose编译宏的作用是什么?<br>显式暴露组件内部的属性和方法</p>
+</blockquote>
+<hr>
+<h3 id="8-组合式API-provide和inject"><a href="#8-组合式API-provide和inject" class="headerlink" title="8.组合式API - provide和inject"></a>8.组合式API - provide和inject</h3><ul>
+<li>作用：顶层组件向任意的底层组件传递数据和方法，实现跨层组件通信</li>
+</ul>
+<blockquote>
+<p>修改要通过调用顶层函数来修改</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2024/01/21/mkXEQnrCRlS3p6o.png" alt="provide,inject.png"></p>
+<blockquote>
+<p>1.provide和inject的作用是什么?<br>跨层组件通信<br>2.如何在传递的过程中保持数据响应式?<br>第二个参数传递ref对象<br>3.底层组件想要通知顶层组件做修改，如何做?<br>传递方法，底层组件调用方法<br>4.一颗组件树中只有一个顶层或底层组件吗?<br>相对概念，存在多个顶层和底层的关系</p>
+</blockquote>
+<hr>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a><a class="post-meta__tags" href="/tags/Vue3/">Vue3</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/10/28/eUH5ql2aAcdToLf.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/11/22/JavaScript%E6%95%A3%E8%AE%B0/" title="JS散记"><img class="cover" src="https://s2.loli.net/2023/10/28/alVdmJKThIpzCWH.jpg" onerror="onerror=null;src='/img/%E5%87%A0%E4%BD%951.png'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JS散记</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/11/14/Vue3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Vue3学习笔记"><img class="cover" src="https://s2.loli.net/2023/10/28/alVdmJKThIpzCWH.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-14</div><div class="title">Vue3学习笔记</div></div></a></div><div><a href="/2023/10/28/React%E7%AC%94%E8%AE%B02/" title="React笔记2"><img class="cover" src="https://s2.loli.net/2023/10/28/juYH3pIyivU4l1Q.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">React笔记2</div></div></a></div><div><a href="/2023/10/26/React%E7%AC%94%E8%AE%B01/" title="React笔记1"><img class="cover" src="https://s2.loli.net/2023/10/28/DnB7viRmeqYpMtW.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-26</div><div class="title">React笔记1</div></div></a></div><div><a href="/2023/10/31/React%E7%AC%94%E8%AE%B03/" title="React笔记3"><img class="cover" src="https://s2.loli.net/2023/10/28/eUH5ql2aAcdToLf.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-31</div><div class="title">React笔记3</div></div></a></div><div><a href="/2023/11/01/React%E7%AC%94%E8%AE%B04/" title="React笔记3"><img class="cover" src="https://s2.loli.net/2023/10/28/PqT3Rmzf5JdGcWy.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-01</div><div class="title">React笔记3</div></div></a></div><div><a href="/2023/11/16/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="JavaScript学习笔记"><img class="cover" src="https://s2.loli.net/2023/10/28/alVdmJKThIpzCWH.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-16</div><div class="title">JavaScript学习笔记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2023/10/25/leyWn1OSiGRZJfT.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">一路向北</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Naru11"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Naru11" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:2925315190@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">这是我的博客！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="toc-text">0. 创建一个新项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BB%84%E5%90%88%E5%BC%8FAPI-setup%E9%80%89%E9%A1%B9"><span class="toc-text">1.组合式API-setup选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-reactive%E5%92%8Cref%E5%87%BD%E6%95%B0"><span class="toc-text">2.reactive和ref函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-computed%E8%AE%A1%E7%AE%97%E5%87%BD%E6%95%B0"><span class="toc-text">3.computed计算函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%BB%84%E5%90%88%E5%BC%8FAPI-watch"><span class="toc-text">4.组合式API - watch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%BB%84%E5%90%88%E5%BC%8FAPI-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0"><span class="toc-text">5.组合式API - 生命周期函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%BB%84%E5%90%88%E5%BC%8FAPI-%E7%88%B6%E5%AD%90%E9%80%9A%E4%BF%A1"><span class="toc-text">6.组合式API - 父子通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%BB%84%E5%90%88%E5%BC%8FAPI-%E6%A8%A1%E7%89%88%E5%BC%95%E7%94%A8"><span class="toc-text">7.组合式API - 模版引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%BB%84%E5%90%88%E5%BC%8FAPI-provide%E5%92%8Cinject"><span class="toc-text">8.组合式API - provide和inject</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/21/Vue3%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" title="Vue3基本知识"><img src="https://s2.loli.net/2023/10/28/eUH5ql2aAcdToLf.jpg" onerror="this.onerror=null;this.src='/img/%E5%87%A0%E4%BD%951.png'" alt="Vue3基本知识"/></a><div class="content"><a class="title" href="/2024/01/21/Vue3%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" title="Vue3基本知识">Vue3基本知识</a><time datetime="2024-01-21T04:02:25.958Z" title="发表于 2024-01-21 12:02:25">2024-01-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/22/JavaScript%E6%95%A3%E8%AE%B0/" title="JS散记"><img src="https://s2.loli.net/2023/10/28/alVdmJKThIpzCWH.jpg" onerror="this.onerror=null;this.src='/img/%E5%87%A0%E4%BD%951.png'" alt="JS散记"/></a><div class="content"><a class="title" href="/2023/11/22/JavaScript%E6%95%A3%E8%AE%B0/" title="JS散记">JS散记</a><time datetime="2023-11-22T13:47:20.263Z" title="发表于 2023-11-22 21:47:20">2023-11-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/16/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="JavaScript学习笔记"><img src="https://s2.loli.net/2023/10/28/alVdmJKThIpzCWH.jpg" onerror="this.onerror=null;this.src='/img/%E5%87%A0%E4%BD%951.png'" alt="JavaScript学习笔记"/></a><div class="content"><a class="title" href="/2023/11/16/JavaScript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="JavaScript学习笔记">JavaScript学习笔记</a><time datetime="2023-11-16T06:08:16.565Z" title="发表于 2023-11-16 14:08:16">2023-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/14/Vue3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Vue3学习笔记"><img src="https://s2.loli.net/2023/10/28/alVdmJKThIpzCWH.jpg" onerror="this.onerror=null;this.src='/img/%E5%87%A0%E4%BD%951.png'" alt="Vue3学习笔记"/></a><div class="content"><a class="title" href="/2023/11/14/Vue3%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Vue3学习笔记">Vue3学习笔记</a><time datetime="2023-11-14T07:08:19.074Z" title="发表于 2023-11-14 15:08:19">2023-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/13/SpringBoot/" title="SpringBoot学习笔记"><img src="https://s2.loli.net/2023/10/28/PqT3Rmzf5JdGcWy.png" onerror="this.onerror=null;this.src='/img/%E5%87%A0%E4%BD%951.png'" alt="SpringBoot学习笔记"/></a><div class="content"><a class="title" href="/2023/11/13/SpringBoot/" title="SpringBoot学习笔记">SpringBoot学习笔记</a><time datetime="2023-11-13T08:35:09.415Z" title="发表于 2023-11-13 16:35:09">2023-11-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2024 By 一路向北</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到我的博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="学习" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
